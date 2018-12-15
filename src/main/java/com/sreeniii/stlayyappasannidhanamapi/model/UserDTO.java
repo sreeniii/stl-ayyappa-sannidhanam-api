@@ -1,6 +1,7 @@
 package com.sreeniii.stlayyappasannidhanamapi.model;
 
 import com.sreeniii.stlayyappasannidhanamapi.entity.User;
+import com.sreeniii.stlayyappasannidhanamapi.util.Constants;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,14 +17,12 @@ public class UserDTO {
     private String username;
     private Boolean isAdmin;
 
-    private static String ADMIN_ROLE = "ADMIN_USER";
-
     public UserDTO(User user) {
         this.id = user.getId();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.username = user.getUsername();
-        this.isAdmin = user.getRoles().stream().filter(role -> role.getRoleName().equals(ADMIN_ROLE)).findFirst().isPresent();
+        this.isAdmin = user.getRoles().stream().filter(role -> role.getRoleName().equals(Constants.ADMIN_ROLE)).findFirst().isPresent();
     }
 
     public static List<UserDTO> convertTOList(List<User> users) {
