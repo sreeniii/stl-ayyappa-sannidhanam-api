@@ -1,4 +1,4 @@
-package com.sreeniii.stlayyappasannidhanamapi.service.impl;
+package com.sreeniii.stlayyappasannidhanamapi.service;
 
 import com.sreeniii.stlayyappasannidhanamapi.entity.User;
 import com.sreeniii.stlayyappasannidhanamapi.repository.UserRepository;
