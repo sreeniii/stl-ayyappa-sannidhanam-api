@@ -1,5 +1,6 @@
 package com.sreeniii.stlayyappasannidhanamapi.service;
 
+import com.sreeniii.stlayyappasannidhanamapi.config.CurrentUser;
 import com.sreeniii.stlayyappasannidhanamapi.entity.User;
 import com.sreeniii.stlayyappasannidhanamapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,9 @@ public class AppUserDetailsService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         });
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.
-                User(user.getUsername(), user.getPassword(), authorities);
+        CurrentUser userDetails = new CurrentUser(user.getUsername(), user.getPassword(), authorities);
+        userDetails.setFirstName(user.getFirstName());
+        userDetails.setLastName(user.getLastName());
 
         return userDetails;
     }

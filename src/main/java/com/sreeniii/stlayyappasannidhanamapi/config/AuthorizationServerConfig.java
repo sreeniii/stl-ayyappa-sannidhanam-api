@@ -2,6 +2,7 @@ package com.sreeniii.stlayyappasannidhanamapi.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,10 +63,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+        enhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer(), accessTokenConverter));
         endpoints.tokenStore(tokenStore)
                 .accessTokenConverter(accessTokenConverter)
                 .tokenEnhancer(enhancerChain)
                 .authenticationManager(authenticationManager);
+    }
+
+    @Bean
+    public CustomTokenEnhancer customTokenEnhancer() {
+        return new CustomTokenEnhancer();
     }
 }

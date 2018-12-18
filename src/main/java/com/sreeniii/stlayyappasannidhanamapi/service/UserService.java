@@ -4,12 +4,14 @@ package com.sreeniii.stlayyappasannidhanamapi.service;
 import com.sreeniii.stlayyappasannidhanamapi.entity.Role;
 import com.sreeniii.stlayyappasannidhanamapi.entity.User;
 import com.sreeniii.stlayyappasannidhanamapi.model.RegisterUserDTO;
+import com.sreeniii.stlayyappasannidhanamapi.model.UpdateProfileDTO;
 import com.sreeniii.stlayyappasannidhanamapi.model.UserDTO;
 import com.sreeniii.stlayyappasannidhanamapi.repository.RoleRepository;
 import com.sreeniii.stlayyappasannidhanamapi.repository.UserRepository;
 import com.sreeniii.stlayyappasannidhanamapi.util.Constants;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +49,38 @@ public class UserService {
         user.setRoles(roles);
 
         return userRepository.save(user);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    public UserDTO updateProfile(Long userId, UpdateProfileDTO updateProfileDTO) {
+        User user = userRepository.findById(userId).get();
+        user.setFirstName(updateProfileDTO.getFirstName());
+        user.setLastName(updateProfileDTO.getLastName());
+
+        user = userRepository.save(user);
+        return new UserDTO(user);
+    }
+
+    public void toggleAdminRights(Long userId, Boolean status) {
+        User user = userRepository.findById(userId).get();
+
+        Role adminRole = roleRepository.findByRoleName(Constants.ADMIN_ROLE);
+        if(Boolean.TRUE.equals(status)) {
+            if(!user.getRoles().contains(adminRole)) {
+                user.getRoles().add(adminRole);
+            }
+        } else {
+            user.getRoles().remove(adminRole);
+        }
+
+        userRepository.save(user);
+    }
+
+    public UserDTO getUserInfoByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        return new UserDTO(user);
     }
 }
