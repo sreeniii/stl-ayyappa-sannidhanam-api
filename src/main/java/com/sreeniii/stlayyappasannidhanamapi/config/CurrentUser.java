@@ -18,4 +18,5 @@ public class CurrentUser extends User {
 
     private String firstName;
     private String lastName;
+    private Long id;
 }

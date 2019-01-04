@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -82,5 +83,13 @@ public class UserService {
     public UserDTO getUserInfoByUsername(String username) {
         User user = userRepository.findByUsername(username);
         return new UserDTO(user);
+    }
+
+    public UserDTO getUserById(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isPresent()) {
+            return new UserDTO(optionalUser.get());
+        }
+        return null;
     }
 }

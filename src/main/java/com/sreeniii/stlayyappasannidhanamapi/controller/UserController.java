@@ -31,6 +31,12 @@ public class UserController {
         return new ResponseEntity<>(userDTOS, HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
+        UserDTO userDTO = userService.getUserById(userId);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
