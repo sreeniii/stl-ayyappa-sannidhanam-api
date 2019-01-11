@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -32,25 +33,25 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long userId) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable UUID userId) {
         UserDTO userDTO = userService.getUserById(userId);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity deleteUser(@PathVariable Long userId) {
+    public ResponseEntity deleteUser(@PathVariable UUID userId) {
         userService.deleteUser(userId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDTO> updateProfile(@PathVariable Long userId, @RequestBody UpdateProfileDTO updateProfileDTO) {
+    public ResponseEntity<UserDTO> updateProfile(@PathVariable UUID userId, @RequestBody UpdateProfileDTO updateProfileDTO) {
         UserDTO userDTO = userService.updateProfile(userId, updateProfileDTO);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @PatchMapping("/{userId}/admin/{status}")
-    public ResponseEntity toggleAdminRights(@PathVariable Long userId, @PathVariable Boolean status) {
+    public ResponseEntity toggleAdminRights(@PathVariable UUID userId, @PathVariable Boolean status) {
         userService.toggleAdminRights(userId, status);
         return new ResponseEntity(HttpStatus.OK);
     }

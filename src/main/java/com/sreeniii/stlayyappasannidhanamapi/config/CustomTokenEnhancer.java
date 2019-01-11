@@ -22,6 +22,7 @@ public class CustomTokenEnhancer extends JwtAccessTokenConverter {
         additionalInfo.put("isAdmin", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()).contains(Constants.ADMIN_ROLE));
         additionalInfo.put("firstName", user.getFirstName());
         additionalInfo.put("lastName", user.getLastName());
+        additionalInfo.put("userId", user.getUserId());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 
         return super.enhance(accessToken, authentication);

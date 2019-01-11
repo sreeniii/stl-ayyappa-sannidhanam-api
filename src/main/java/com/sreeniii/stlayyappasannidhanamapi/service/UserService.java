@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -52,11 +53,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(UUID userId) {
         userRepository.deleteById(userId);
     }
 
-    public UserDTO updateProfile(Long userId, UpdateProfileDTO updateProfileDTO) {
+    public UserDTO updateProfile(UUID userId, UpdateProfileDTO updateProfileDTO) {
         User user = userRepository.findById(userId).get();
         user.setFirstName(updateProfileDTO.getFirstName());
         user.setLastName(updateProfileDTO.getLastName());
@@ -65,7 +66,7 @@ public class UserService {
         return new UserDTO(user);
     }
 
-    public void toggleAdminRights(Long userId, Boolean status) {
+    public void toggleAdminRights(UUID userId, Boolean status) {
         User user = userRepository.findById(userId).get();
 
         Role adminRole = roleRepository.findByRoleName(Constants.ADMIN_ROLE);
@@ -85,7 +86,7 @@ public class UserService {
         return new UserDTO(user);
     }
 
-    public UserDTO getUserById(Long userId) {
+    public UserDTO getUserById(UUID userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if(optionalUser.isPresent()) {
             return new UserDTO(optionalUser.get());

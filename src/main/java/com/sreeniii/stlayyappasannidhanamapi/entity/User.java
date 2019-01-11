@@ -2,19 +2,25 @@ package com.sreeniii.stlayyappasannidhanamapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "app_user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "user_id")
+    private UUID userId;
 
     @Column(name = "username")
     private String username;
@@ -36,9 +42,9 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns
             = @JoinColumn(name = "user_id",
-            referencedColumnName = "id"),
+            referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id",
-                    referencedColumnName = "id"))
+                    referencedColumnName = "role_id"))
     private List<Role> roles;
 }
 

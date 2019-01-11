@@ -7,18 +7,19 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 public class UserDTO {
-    private Long id;
+    private UUID userId;
     private String firstName;
     private String lastName;
     private String username;
     private Boolean isAdmin;
 
     public UserDTO(User user) {
-        this.id = user.getId();
+        this.userId = user.getUserId();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.username = user.getUsername();

@@ -3,6 +3,8 @@ package com.sreeniii.stlayyappasannidhanamapi.repository;
 import com.sreeniii.stlayyappasannidhanamapi.entity.Role;
 import org.springframework.data.repository.CrudRepository;
 
-public interface RoleRepository extends CrudRepository<Role, Long> {
+import java.util.UUID;
+
+public interface RoleRepository extends CrudRepository<Role, UUID> {
     Role findByRoleName(String roleName);
 }

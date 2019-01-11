@@ -35,7 +35,7 @@ public class AppUserDetailsService implements UserDetailsService {
         CurrentUser userDetails = new CurrentUser(user.getUsername(), user.getPassword(), authorities);
         userDetails.setFirstName(user.getFirstName());
         userDetails.setLastName(user.getLastName());
-        userDetails.setId(user.getId());
+        userDetails.setUserId(user.getUserId());
 
         return userDetails;
     }

@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Data
 public class CurrentUser extends User {
@@ -18,5 +19,5 @@ public class CurrentUser extends User {
 
     private String firstName;
     private String lastName;
-    private Long id;
+    private UUID userId;
 }
