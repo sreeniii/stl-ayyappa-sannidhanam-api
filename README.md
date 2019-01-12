@@ -6,7 +6,8 @@ Use Flyway to initialize the DB and maintain DDLs
 
 Set the below environment variables on your local system -
 
-`FLYWAY_URL` = database url in the format `jdbc:postgresql://host:port/database`  `FLYWAY_USER` = username  
+`FLYWAY_URL` = database url in the format `jdbc:postgresql://host:port/database`  
+`FLYWAY_USER` = username  
 `FLYWAY_PASSWORD` = password  
 `FLYWAY_SCHEMAS` = postgres
 
